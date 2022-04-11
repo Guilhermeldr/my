@@ -9,6 +9,7 @@ import {
   getFirestore,
   QueryDocumentSnapshot,
 } from "firebase/firestore";
+import { firebaseConfig as config } from "./config";
 
 import { Channel } from "./entities/channel.entity";
 import { __DEV__ } from "./helpers/constants";
@@ -17,18 +18,7 @@ import { Message, Participant, Presence } from "./sdk";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-export const firebaseConfig = {
-  apiKey: "AIzaSyDP3WGrM1PrNlFNX2ri4Tbe4rgYF-CpsZw",
-  authDomain: "bitwild-live.firebaseapp.com",
-  databaseURL: "https://bitwild-live-default-rtdb.firebaseio.com",
-  projectId: "bitwild-live",
-  storageBucket: "bitwild-live.appspot.com",
-  messagingSenderId: "586765207266",
-  appId: "1:586765207266:web:1b371e7804b6a9138100bb",
-  measurementId: "G-GTY9SEEEK3",
-};
+export const firebaseConfig = config;
 
 // Initialize Firebase
 export const firebaseApp = initializeApp(firebaseConfig);
