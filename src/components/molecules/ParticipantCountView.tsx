@@ -1,11 +1,9 @@
 import { AvatarExcess, AvatarGroup, HStack, Text } from "@hope-ui/solid";
 import { Component, For, Show } from "solid-js";
-import { useChannelContext } from "../../api/providers/channel.provider";
 import { useParticipantsContext } from "../../api/providers/participants.provider";
 import ParticipantAvatar from "../atoms/ParticipantAvatar";
 
 const ParticipantCountView: Component = () => {
-  const [channelState] = useChannelContext();
   const [participantState] = useParticipantsContext();
 
   const topParticipants = () =>

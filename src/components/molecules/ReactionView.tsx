@@ -83,6 +83,7 @@ const ReactionsView: Component = () => {
             {(reaction) => (
               <Box
                 position="absolute"
+                zIndex={1}
                 as="span"
                 transform={transform()}
                 right={-20}

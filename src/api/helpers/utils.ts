@@ -51,7 +51,6 @@ export function getDisplayNameInitials(displayName = "") {
 export const getRelativeTime = (date: Date) => {
   const difference = (new Date().getTime() - date.getTime()) / 1000;
 
-  console.log(difference);
   if (difference < 60) {
     // Less than a minute has passed:
     return `${Math.floor(difference)} sec ago`;

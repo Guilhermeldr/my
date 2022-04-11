@@ -60,7 +60,6 @@ export function useReactionsList(channelId: string) {
       setState("reactions", [...reactionsRef]);
     }, 3000);
 
-    console.log("reactionsRef", reactionsRef.length);
     setState("reactions", [...reactionsRef]);
   }, 0);
 
