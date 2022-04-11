@@ -27,10 +27,11 @@ const ParticipantCountView: Component = () => {
     <HStack>
       <AvatarGroup marginRight="$2">
         <For each={topParticipants()}>
-          {(participant) => (
+          {({ participant }) => (
             <ParticipantAvatar
               size="sm"
-              displayName={participant.participant.displayName}
+              displayName={participant.displayName}
+              photoUrl={participant.photoUrl}
             />
           )}
         </For>

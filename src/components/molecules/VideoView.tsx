@@ -1,6 +1,6 @@
 import "@bitwild/vxdk/dist/style.css";
 import { Box, Flex } from "@hope-ui/solid";
-import { Component, createEffect, onCleanup, onMount, Show } from "solid-js";
+import { Component, onCleanup, onMount, Show } from "solid-js";
 import { useScreenSize } from "../../api/hooks/useScreenSize";
 import { useVxdkContext } from "../../api/providers/vxdk.provider";
 import ReactionsView from "./ReactionView";
@@ -20,10 +20,6 @@ type VideoViewProps = {};
 export const VideoView: Component<VideoViewProps> = (props) => {
   const [state, { load, unload, controller }] = useVxdkContext();
   let containerRef: HTMLDivElement;
-
-  createEffect(() => {
-    console.log("props", props);
-  });
 
   // const { updateParticipantMetadata } = useChannelActions();
 

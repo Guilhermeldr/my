@@ -4,7 +4,8 @@ import { getContrastColor } from "../../api/helpers/colors";
 import { getUserNameColor } from "../../api/helpers/utils";
 
 type Props = {
-  displayName: string;
+  displayName?: string;
+  photoUrl?: string;
 } & AvatarProps;
 
 const ParticipantAvatar: Component<Props> = (props) => {
@@ -14,6 +15,7 @@ const ParticipantAvatar: Component<Props> = (props) => {
   return (
     <Avatar
       name={props.displayName ?? "Guest"}
+      src={props.photoUrl ?? ""}
       {...props}
       color={textColor()}
       backgroundColor={color()}

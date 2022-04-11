@@ -18,7 +18,7 @@ class ChannelAPI {
   static async ping() {
     await AnalyticsService.analyticsControllerPing();
   }
-  static async create(dto: CreateChannelRequestDto) {
+  static async createChannel(dto: CreateChannelRequestDto) {
     return ChannelsService.channelControllerCreate({ body: dto });
   }
 

@@ -6,6 +6,10 @@ import {
   Icon,
   IconButton,
   Input,
+  Menu,
+  MenuContent,
+  MenuItem,
+  MenuTrigger,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -17,10 +21,13 @@ import {
   Text,
   VStack,
 } from "@hope-ui/solid";
+import { signOut } from "firebase/auth";
 import { Timestamp } from "firebase/firestore";
-import { IoSend } from "solid-icons/io";
+import { IoEllipsisVerticalSharp, IoSend } from "solid-icons/io";
 import { Component, createEffect, createSignal, For, Show } from "solid-js";
+import { firebaseAuth } from "../../api/firebase";
 import { getRelativeTime } from "../../api/helpers/utils";
+import { useChannelContext } from "../../api/providers/channel.provider";
 import { useChatContext } from "../../api/providers/chat.provider";
 import { EnumSendMessageDtoType, Message } from "../../api/sdk";
 import ParticipantAvatar from "../atoms/ParticipantAvatar";
@@ -83,6 +90,7 @@ const MessageItem: Component<MessageItemProps> = (props) => {
             <ParticipantAvatar
               size="sm"
               displayName={displayName()}
+              photoUrl={sender().photoUrl}
               marginRight="$2"
             />
           </Show>
@@ -106,6 +114,7 @@ const MessageItem: Component<MessageItemProps> = (props) => {
 
 const ChatView: Component = () => {
   const [state, actions] = useChatContext();
+  const [_, channelActions] = useChannelContext();
   const [value, setValue] = createSignal("");
   const [selectedEmoji, setSelectedEmoji] = createSignal("👍");
 
@@ -141,6 +150,11 @@ const ChatView: Component = () => {
     });
   };
 
+  const onSignOut = async () => {
+    await channelActions.leaveChannel();
+    await signOut(firebaseAuth);
+  };
+
   const onKeyDown = (key: string) => {
     key === "Enter" && handleSubmit();
   };
@@ -160,6 +174,21 @@ const ChatView: Component = () => {
         <Spacer />
 
         <ParticipantCountView />
+        <Box marginLeft="$2">
+          <Menu>
+            <MenuTrigger
+              as={IconButton}
+              aria-label="Open Menu"
+              colorScheme="primary"
+              variant="ghost"
+              size="sm"
+              icon={<Icon as={IoEllipsisVerticalSharp} />}
+            ></MenuTrigger>
+            <MenuContent>
+              <MenuItem onSelect={onSignOut}>Sign out</MenuItem>
+            </MenuContent>
+          </Menu>
+        </Box>
       </HStack>
 
       <Flex

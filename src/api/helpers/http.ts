@@ -7,9 +7,9 @@ import { applyInterceptors } from "./interceptors";
 let API_URL: string;
 
 if (__DEV__) {
-  API_URL = "http://localhost:5001/bitwild-live/us-east1/api";
+  API_URL = "http://localhost:5001/solidhack2022/us-east1/api";
 } else {
-  API_URL = "https://us-east1-bitwild-live.cloudfunctions.net/api";
+  API_URL = "https://us-east1-solidhack2022.cloudfunctions.net/api";
 }
 
 export const http = axios.create({
