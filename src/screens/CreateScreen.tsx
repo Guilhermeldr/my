@@ -79,7 +79,7 @@ const CreateScreen: Component = () => {
       setLoading(true);
 
       const channelId = await ChannelAPI.createChannel({
-        name: form.name,
+        name: form.name ?? "Demo Room",
         metadata: {
           nftAddress: "0xd3d300261aef33b4b0561f58156337fe7885ae01",
           videoUrl:

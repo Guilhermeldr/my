@@ -4,7 +4,6 @@ import { Route, Router, Routes } from "solid-app-router";
 import { FirebaseProvider, useAuth } from "solid-firebase";
 import { Component, Match, onMount, Switch } from "solid-js";
 import { firebaseAuth, firebaseConfig } from "./api/firebase";
-import AuthView from "./components/organisms/AuthView";
 import CreateScreen from "./screens/CreateScreen";
 import WatchScreen from "./screens/WatchScreen";
 
@@ -39,9 +38,7 @@ const AppLoading = () => {
       <Match when={state.loading}>
         <Spinner />
       </Match>
-      <Match when={!state.data}>
-        <AuthView />
-      </Match>
+
       <Match when={state.data}>
         <AppRoutes />
       </Match>
