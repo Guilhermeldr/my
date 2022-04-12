@@ -23,6 +23,9 @@ export const VideoView: Component<VideoViewProps> = (props) => {
   const [channelState] = useChannelContext();
   let containerRef: HTMLDivElement;
 
+  const source = () => channelState.channel.data().metadata.videoUrl;
+  const nftAddress = () => channelState.channel.data()?.metadata?.nftAddress;
+
   // const { updateParticipantMetadata } = useChannelActions();
 
   const { isSmall } = useScreenSize();
@@ -34,7 +37,8 @@ export const VideoView: Component<VideoViewProps> = (props) => {
           ...options,
           plugins: {
             "confirm-play": {
-              nftContract: channelState.channel.data()?.metadata?.nftAddress,
+              source: source(),
+              nftContract: nftAddress(),
             },
           },
         });
