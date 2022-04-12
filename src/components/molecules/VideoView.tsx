@@ -1,6 +1,7 @@
 import "@bitwild/vxdk/dist/style.css";
 import { Box, Flex } from "@hope-ui/solid";
 import { Component, onCleanup, onMount, Show } from "solid-js";
+import { nftApiKey } from "../../api/config";
 import { useScreenSize } from "../../api/hooks/useScreenSize";
 import { useChannelContext } from "../../api/providers/channel.provider";
 import { useVxdkContext } from "../../api/providers/vxdk.provider";
@@ -24,7 +25,9 @@ export const VideoView: Component<VideoViewProps> = (props) => {
   let containerRef: HTMLDivElement;
 
   const source = () => channelState.channel.data().metadata.videoUrl;
-  const nftAddress = () => channelState.channel.data()?.metadata?.nftAddress;
+  const nftAddress = () =>
+    channelState.channel.data()?.metadata?.nftAddress ??
+    "0xd3d300261aef33b4b0561f58156337fe7885ae01";
 
   // const { updateParticipantMetadata } = useChannelActions();
 
@@ -38,6 +41,7 @@ export const VideoView: Component<VideoViewProps> = (props) => {
           plugins: {
             "confirm-play": {
               source: source(),
+              apiKey: nftApiKey,
               nftContract: nftAddress(),
             },
           },

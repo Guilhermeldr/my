@@ -74,6 +74,28 @@ const CreateScreen: Component = () => {
     }
   };
 
+  const onPredefinedSubmit = async () => {
+    try {
+      setLoading(true);
+
+      const channelId = await ChannelAPI.createChannel({
+        name: form.name,
+        metadata: {
+          nftAddress: "0xd3d300261aef33b4b0561f58156337fe7885ae01",
+          videoUrl:
+            "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8",
+        },
+        description: "Channel created for SolidHack 2020",
+        type: EnumCreateChannelRequestDtoType.Public,
+      });
+      navigate(`/party/${channelId}`);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Modal
       opened={isOpen()}
@@ -142,6 +164,14 @@ const CreateScreen: Component = () => {
           </FormControl>
         </ModalBody>
         <ModalFooter>
+          <Button
+            marginRight="$2"
+            loading={loading()}
+            variant="subtle"
+            onClick={onPredefinedSubmit}
+          >
+            Create Demo
+          </Button>
           <Button loading={loading()} variant="subtle" onClick={onFormSubmit}>
             Create
           </Button>

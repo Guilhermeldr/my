@@ -52,7 +52,7 @@ const AppLoading = () => {
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<AuthView redirectUrl="/create" />} />
+      <Route path="/" element={<CreateScreen />} />
       <Route path="/create" element={<CreateScreen />} />
       <Route path="/party">
         <Route path="/:id" element={<WatchScreen />} />
