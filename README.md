@@ -10,7 +10,7 @@ We are leveraging NFTs as a decentralized membership system. A user can create a
 
 
 ## Video
-[Watch Video Demo](https://www.loom.com/share/438d52d5638549789f058375846216d6)
+[Watch Video Demo](https://www.loom.com/share/8ac6e2e198c3461a9656ca4d2fea2045)
 
 ### Demo
 https://solidhack2022.web.app
