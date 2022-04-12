@@ -2,6 +2,7 @@ import "@bitwild/vxdk/dist/style.css";
 import { Box, Flex } from "@hope-ui/solid";
 import { Component, onCleanup, onMount, Show } from "solid-js";
 import { useScreenSize } from "../../api/hooks/useScreenSize";
+import { useChannelContext } from "../../api/providers/channel.provider";
 import { useVxdkContext } from "../../api/providers/vxdk.provider";
 import ReactionsView from "./ReactionView";
 
@@ -19,6 +20,7 @@ type VideoViewProps = {};
 
 export const VideoView: Component<VideoViewProps> = (props) => {
   const [state, { load, unload, controller }] = useVxdkContext();
+  const [channelState] = useChannelContext();
   let containerRef: HTMLDivElement;
 
   // const { updateParticipantMetadata } = useChannelActions();
@@ -27,7 +29,15 @@ export const VideoView: Component<VideoViewProps> = (props) => {
 
   onMount(() => {
     if (typeof window !== "undefined") {
-      !controller && load(containerRef, options);
+      !controller &&
+        load(containerRef, {
+          ...options,
+          plugins: {
+            "confirm-play": {
+              nftContract: channelState.channel.data()?.metadata?.nftAddress,
+            },
+          },
+        });
     }
   });
 
@@ -52,7 +62,7 @@ export const VideoView: Component<VideoViewProps> = (props) => {
         {/* <DrawCanvas /> */}
       </Show>
       <Box width={"100%"} ref={containerRef}></Box>
-      <Box position="absolute" zIndex={1} bottom={0} right={0} left={0}>
+      <Box position="absolute" zIndex={10} bottom={0} right={0} left={0}>
         <ReactionsView />
       </Box>
     </Flex>

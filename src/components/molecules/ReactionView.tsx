@@ -32,7 +32,7 @@ const ReactionsView: Component = () => {
   const transformOnEnter = () =>
     `translateX(${animationWidth()}px) translateY(${translateY()}px) rotateZ(${rotateZ()})`;
 
-  const duration = () => 3000 - getRandomInt(500);
+  const duration = () => 3600 - getRandomInt(500);
 
   createEffect(() => {
     if (boxRef) {
@@ -86,7 +86,7 @@ const ReactionsView: Component = () => {
                 zIndex={1}
                 as="span"
                 transform={transform()}
-                right={-20}
+                right={0}
               >
                 {reaction.val().data?.emoji}
               </Box>

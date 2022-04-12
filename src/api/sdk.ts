@@ -971,7 +971,7 @@ export class Sender {
   "role": EnumSenderRole;
 
   /**  */
-  "photoUrl": string;
+  "photoUrl"?: string;
 
   constructor(data: undefined | any = {}) {
     this["displayName"] = data["displayName"];
@@ -1055,7 +1055,7 @@ export class CreateParticipantDto {
   "displayName": string;
 
   /**  */
-  "photoUrl": string;
+  "photoUrl"?: string;
 
   /**  */
   "role": EnumCreateParticipantDtoRole;
@@ -1090,7 +1090,7 @@ export class Participant {
   "displayName": string;
 
   /**  */
-  "photoUrl": string;
+  "photoUrl"?: string;
 
   /**  */
   "role": EnumParticipantRole;
@@ -1151,7 +1151,7 @@ export class ParticipantReferenceDto {
   "displayName": string;
 
   /**  */
-  "photoUrl": string;
+  "photoUrl"?: string;
 
   /**  */
   "role": EnumParticipantReferenceDtoRole;

@@ -9,6 +9,8 @@ export enum ChannelType {
 export class ChannelMetadata {
   liveUsers?: number;
   totalUsers?: number;
+  nftAddress?: string;
+  videoUrl?: string;
 }
 
 export class Channel extends Entity {
