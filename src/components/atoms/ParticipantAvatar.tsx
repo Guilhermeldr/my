@@ -9,7 +9,7 @@ type Props = {
 } & AvatarProps;
 
 const ParticipantAvatar: Component<Props> = (props) => {
-  const color = () => getUserNameColor(props.displayName);
+  const color = () => getUserNameColor(props.displayName ?? "Guest");
   const textColor = () => getContrastColor(color());
 
   return (

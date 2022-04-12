@@ -6,20 +6,19 @@ import { firebaseAuth } from "../../api/firebase";
 
 const ui = new firebaseui.auth.AuthUI(firebaseAuth);
 
-const SignInView: Component = () => {
+type Props = {
+  redirectUrl?: string;
+};
+
+const AuthView: Component<Props> = (props) => {
   let difRef: HTMLDivElement;
 
   onMount(() => {
     ui.start(difRef, {
       signInFlow: "popup",
-
-      signInSuccessUrl: "/create",
-      signInOptions: [
-        {
-          provider: GithubAuthProvider.PROVIDER_ID,
-          requireDisplayName: true,
-        },
-      ],
+      // autoUpgradeAnonymousUsers: true,
+      signInSuccessUrl: props.redirectUrl ?? "/create",
+      signInOptions: [GithubAuthProvider.PROVIDER_ID],
     });
   });
 
@@ -29,4 +28,4 @@ const SignInView: Component = () => {
   return <div ref={difRef}></div>;
 };
 
-export default SignInView;
+export default AuthView;

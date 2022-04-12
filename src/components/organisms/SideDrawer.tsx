@@ -8,10 +8,11 @@ type Props = {
 const SideDrawer: Component<Props> = (props) => {
   return (
     <Flex
-      maxWidth={props.width}
+      width={props.width}
       paddingBottom="$2"
       paddingLeft="$2"
       overflow="auto"
+      className="h-full "
       borderLeft="1px solid $whiteAlpha5"
     >
       <ChatView />

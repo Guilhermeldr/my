@@ -8,6 +8,7 @@ import {
 import { ChatProvider } from "../api/providers/chat.provider";
 import { ParticipantsProvider } from "../api/providers/participants.provider";
 import { VxdkProvider } from "../api/providers/vxdk.provider";
+import CompleteProfileView from "../components/organisms/CompleteProfileView";
 import WatchView from "../components/organisms/WatchView";
 
 const WatchScreen: Component = () => {
@@ -21,14 +22,14 @@ const WatchScreen: Component = () => {
 };
 
 const WatchContainer: Component = () => {
-  const [state, { joinChannel, leaveChannel }] = useChannelContext();
+  const [state, actions] = useChannelContext();
 
   onMount(() => {
-    joinChannel();
+    actions.joinChannel({ passcode: null });
   });
 
   onCleanup(() => {
-    leaveChannel();
+    actions.leaveChannel();
   });
 
   return (
@@ -40,6 +41,7 @@ const WatchContainer: Component = () => {
         <VxdkProvider>
           <ParticipantsProvider channelId={state.channel.id}>
             <ChatProvider channelId={state.channel.id}>
+              <CompleteProfileView />
               <WatchView />
             </ChatProvider>
           </ParticipantsProvider>

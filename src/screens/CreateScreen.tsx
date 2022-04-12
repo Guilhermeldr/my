@@ -18,7 +18,7 @@ import {
   ModalOverlay,
 } from "@hope-ui/solid";
 import { useNavigate } from "solid-app-router";
-import { Component, onMount } from "solid-js";
+import { Component, createSignal, onMount } from "solid-js";
 import { createStore } from "solid-js/store";
 import {
   CreateChannelRequestDto,
@@ -35,6 +35,7 @@ type FormFields = {
 const CreateScreen: Component = () => {
   const { isOpen, onOpen, onClose } = createDisclosure();
   const navigate = useNavigate();
+  const [loading, setLoading] = createSignal(false);
 
   const [form, setForm] = createStore<FormFields>({
     name: "",
@@ -56,14 +57,21 @@ const CreateScreen: Component = () => {
   };
 
   const onFormSubmit = async () => {
-    const channelId = await ChannelAPI.createChannel({
-      name: form.name,
-      metadata: { nftAddress: form.nftAddress, videoUrl: form.videoUrl },
-      description: "",
-      type: EnumCreateChannelRequestDtoType.Public,
-    });
+    try {
+      setLoading(true);
 
-    navigate(`/channels/${channelId}`);
+      const channelId = await ChannelAPI.createChannel({
+        name: form.name,
+        metadata: { nftAddress: form.nftAddress, videoUrl: form.videoUrl },
+        description: "Channel created for SolidHack 2020",
+        type: EnumCreateChannelRequestDtoType.Public,
+      });
+      navigate(`/party/${channelId}`);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -92,6 +100,7 @@ const CreateScreen: Component = () => {
               placeholder="Name"
               onChange={updateFormField("name")}
               value={form.name}
+              disabled={loading()}
             />
           </FormControl>
 
@@ -108,6 +117,7 @@ const CreateScreen: Component = () => {
                 placeholder="Contract Address"
                 onChange={updateFormField("nftAddress")}
                 value={form.nftAddress}
+                disabled={loading()}
               />
             </InputGroup>
             <FormHelperText>
@@ -116,13 +126,14 @@ const CreateScreen: Component = () => {
           </FormControl>
 
           <FormControl id="videoUrl">
-            <FormLabel>Video URL</FormLabel>
+            <FormLabel>Video Source</FormLabel>
             <InputGroup>
-              <InputLeftAddon>https://</InputLeftAddon>
+              <InputLeftAddon>URL</InputLeftAddon>
               <Input
                 placeholder="Link to Video"
                 onChange={updateFormField("videoUrl")}
                 value={form.videoUrl}
+                disabled={loading()}
               />
             </InputGroup>
             <FormHelperText>
@@ -131,7 +142,7 @@ const CreateScreen: Component = () => {
           </FormControl>
         </ModalBody>
         <ModalFooter>
-          <Button variant="subtle" onClick={onFormSubmit}>
+          <Button loading={loading()} variant="subtle" onClick={onFormSubmit}>
             Create
           </Button>
         </ModalFooter>

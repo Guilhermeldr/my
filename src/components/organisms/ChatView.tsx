@@ -23,6 +23,7 @@ import {
 } from "@hope-ui/solid";
 import { signOut } from "firebase/auth";
 import { Timestamp } from "firebase/firestore";
+import { useNavigate } from "solid-app-router";
 import { IoEllipsisVerticalSharp, IoSend } from "solid-icons/io";
 import { Component, createEffect, createSignal, For, Show } from "solid-js";
 import { firebaseAuth } from "../../api/firebase";
@@ -117,8 +118,7 @@ const ChatView: Component = () => {
   const [_, channelActions] = useChannelContext();
   const [value, setValue] = createSignal("");
   const [selectedEmoji, setSelectedEmoji] = createSignal("👍");
-
-  const activeExtension = () => state.activeExtension;
+  const navigate = useNavigate();
 
   const handleInput = (event: any) => setValue(event.target.value);
 
@@ -153,6 +153,7 @@ const ChatView: Component = () => {
   const onSignOut = async () => {
     await channelActions.leaveChannel();
     await signOut(firebaseAuth);
+    navigate("/");
   };
 
   const onKeyDown = (key: string) => {
@@ -163,8 +164,10 @@ const ChatView: Component = () => {
     return value().length > 0;
   };
 
+  const onChangeName = () => {};
+
   return (
-    <Flex flexDirection="column">
+    <Flex flexDirection="column" width="100%">
       <HStack
         padding={10}
         width="100%"
@@ -185,6 +188,7 @@ const ChatView: Component = () => {
               icon={<Icon as={IoEllipsisVerticalSharp} />}
             ></MenuTrigger>
             <MenuContent>
+              <MenuItem onSelect={onChangeName}>Change Name</MenuItem>
               <MenuItem onSelect={onSignOut}>Sign out</MenuItem>
             </MenuContent>
           </Menu>

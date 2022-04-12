@@ -9,6 +9,7 @@ import {
   CreateChannelRequestDto,
   JoinChannelRequestDto,
   SendBroadcastDto,
+  UpdateParticipantDto,
 } from "../sdk";
 import { http } from "../helpers/http";
 
@@ -43,6 +44,18 @@ class ChannelAPI {
   static async addParticipant(channelId: string, dto: CreateParticipantDto) {
     return ParticipantsService.participantControllerCreate({
       channelId,
+      body: dto,
+    });
+  }
+
+  static async updateParticipant(
+    channelId: string,
+    id: string,
+    dto: UpdateParticipantDto
+  ) {
+    return ParticipantsService.participantControllerUpdate({
+      channelId,
+      id,
       body: dto,
     });
   }

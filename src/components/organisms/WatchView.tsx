@@ -12,8 +12,8 @@ const WatchView: Component = () => {
   return (
     <Flex
       flexDirection={isSmall() ? "column" : "row"}
-      maxHeight={height()}
       flex={1}
+      height={height()}
       overflow="hidden"
     >
       <Flex

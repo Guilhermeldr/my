@@ -11,9 +11,12 @@ import {
 import { updateProfile } from "firebase/auth";
 import { Component, createSignal, onMount } from "solid-js";
 import { firebaseAuth } from "../../api/firebase";
+import { useChannelContext } from "../../api/providers/channel.provider";
+import ChannelAPI from "../../api/services/channel.service";
 
 const CompleteProfileView: Component = (props) => {
   const [value, setValue] = createSignal("");
+  const [state] = useChannelContext();
 
   const [isOpen, setIsOpen] = createSignal(false);
 
@@ -22,6 +25,11 @@ const CompleteProfileView: Component = (props) => {
   const handleSubmit = async () => {
     await updateProfile(firebaseAuth.currentUser, { displayName: value() });
     await firebaseAuth.currentUser.getIdToken(true);
+    await ChannelAPI.updateParticipant(
+      state.channel.id,
+      firebaseAuth.currentUser.uid,
+      { displayName: value() }
+    );
     setIsOpen(false);
   };
 
